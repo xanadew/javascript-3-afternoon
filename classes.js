@@ -14,6 +14,8 @@
 
 ////////// PROBLEM 1 //////////
 
+
+
 /*
   Make a class to help us build all of the employees.
   Each employee has the following properties:
@@ -30,9 +32,20 @@
 */
 
 //Code Here
-
-
-
+class Employee{
+  constructor(first_name,last_name,email,age){
+    this.first_name=first_name;
+    this.last_name=last_name;
+    this.email=email;
+    this.age=age;
+  }
+  makeWidget(){
+    return this.first_name+' '+this.last_name+' '+'Widget';
+  }
+}
+var emps=new Employee('Dave','Smith','davesmith@gmail.com',29);
+console.log(emps);
+emps.makeWidget();
 ////////// PROBLEM 2 //////////
 
 /*
@@ -50,7 +63,21 @@
 */
 
 //Code Here
-
+class Manager{
+  constructor(first_name,last_name,email,age){
+    this.first_name=first_name;
+    this.last_name=last_name;
+    this.email=email;
+    this.age=age;
+    this.reports=[];
+  }
+  hire(employee){
+    this.reports.push(employee);
+  }
+  fire(index){
+    this.reports.splice(index,1);
+  }
+}
 
 
 ////////// PROBLEM 3 //////////
@@ -76,7 +103,44 @@
 */
 
 //Code Here
+class ProgressiveManager{
+  constructor(first_name,last_name,email,age){
+    this.first_name=first_name;
+    this.last_name=last_name;
+    this.email=email;
+    this.age=age;
+    this.reports=[];
+    this.title='Not a manager';
+    this.bonus=0;
+  }
 
+  hire(employee){
+    this.reports.push(employee);
+    this.checkHireFire();
+  }
+  
+  fire(index){
+    this.reports.splice(index,1);
+    this.checkHireFire();
+    this.bonus+=100
+  }
+  checkHireFire(){
+    if(this.reports.length>100){
+      this.title='Bestest Manager';
+    }else if(this.reports.length>=51){
+      this.title='Manager Plus'
+    }else if(this.reports.length>=11){
+      this.title='Manager'
+    }else if(this.reports.length>=4){
+      this.title='Mostly Manager'
+    }else if(this.reports.length>=1){
+      this.title='Barely Manager'
+    }
+  }
+}
+var Bob = new ProgressiveManager('Bob','Bobson','bob@bobson.com',35);
+Bob.hire(emps);
+console.log(Bob);
 
 
 ////////// PROBLEM 4 - Black Diamond //////////
@@ -103,5 +167,27 @@
 */
 
 //Code Here
+class Machine{
+  constructor(){
+    this.widgets_made_count = 0;
+    this.wear_and_tear_count = 0;
+    this.needs_reboot = false;
+  }
+  makeWidgets(number){
+    this.widgets_made_count += number;
+    this.wear_and_tear_count += number / 50;
+  }
+  fixMachine(){
+    this.needs_reboot = true;
+  }
+  reboot(){   
+     return ()=>{
+    this.wear_and_tear_count -= 10;
+    this.needs_reboot = false;
+     };
+  }
+}
 
+var machine = new Machine();
+machine.makeWidgets(100);
 
